@@ -1,5 +1,6 @@
 from Utility.DBconn import DBconnection
 from abc import ABC, abstractmethod
+from MyExceptions.InvalidLoanException import InvalidLoanException
 
 class ILoanService(ABC):
     @abstractmethod
@@ -51,14 +52,17 @@ class LoanService(ILoanService,DBconnection):
         except Exception as e:
             print(e)
 
-    def calculateInterest(self,Customer):
+    def calculateInterest(self,Loan_ID):
         try:
             self.cursor.execute("""
             select  ((Principal_Amount * Interest_Rate * Loan_Term) / 12) as Interest_Amount from loan
-            where Customer= ? """,
-            (Customer))
-            for director in self.cursor:
-                print(director)
+            where Loan_ID= ? """,
+            (Loan_ID))
+            loan = self.cursor.fetchall()  # Get all data
+            if len(loan) == 0:
+                raise InvalidLoanException(Loan_ID)
+            else:
+                print(loan)
         except Exception as e:
             print(e)
 
@@ -111,7 +115,8 @@ class LoanService(ILoanService,DBconnection):
             where Loan_ID =?"""
             ,Loan_ID                    
             )
-            for director in self.cursor:
-                print(director)
+            loan = self.cursor.fetchall()  # Get all data
+            if len(loan) == 0:
+                raise InvalidLoanException(Loan_ID)
         except Exception as e:
             print(e)

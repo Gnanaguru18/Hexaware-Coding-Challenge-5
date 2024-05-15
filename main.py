@@ -1,6 +1,9 @@
 from DAO import LoanService,CustomerService
 from Entity import customer,loan
 
+"""
+Question number a, c , d all comes under choice 1 according to the question
+"""
 
 
 if __name__ == "__main__":
@@ -25,8 +28,12 @@ if __name__ == "__main__":
             Loan_Type=input("Enter loan type (HomeLoan or CarLoan):")
             Loan_Status='Pending'
             loan_service.applyLoan(Customer,Principal_Amount,Interest_Rate,Loan_Term,Loan_Type,Loan_Status)
+            loan_service.getAllLoan()
+            Loan_ID=int(input("Enter loan id:"))
             print("Interest Amount:")
-            loan_service.calculateInterest(Customer)
+            loan_service.calculateInterest(Loan_ID)
+            print("EMI :")
+            loan_service.calculateEMI(Customer)
 
         if choice == 2:
             Loan_ID=int(input("Enter loan id:"))
