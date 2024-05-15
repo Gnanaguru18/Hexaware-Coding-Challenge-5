@@ -126,5 +126,6 @@ class LoanService(ILoanService,DBconnection):
             loan = self.cursor.fetchall()  # Get all data
             if len(loan) == 0:
                 raise InvalidLoanException(Loan_ID)
+            print(loan)
         except Exception as e:
             print(e)
