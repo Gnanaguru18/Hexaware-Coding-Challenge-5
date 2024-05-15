@@ -38,6 +38,7 @@ if __name__ == "__main__":
         if choice == 2:
             Loan_ID=int(input("Enter loan id:"))
             loan_service.loanStatus(Loan_ID)
+            loan_service.status(Loan_ID)
         
         if choice == 3:
             loan_service.loanRepayment()

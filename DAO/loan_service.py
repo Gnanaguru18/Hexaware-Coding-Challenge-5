@@ -78,10 +78,18 @@ class LoanService(ILoanService,DBconnection):
             (Loan_ID ,Loan_ID))
             self.conn.commit()
             
+        except Exception as e:
+            print(e)
+    def status(self,Loan_ID):
+        try:
+            self.cursor.execute("""
+                                select Loan_status from loan
+                                where loan_id =?""",Loan_ID)
             for director in self.cursor:
                 print(director)
         except Exception as e:
             print(e)
+
         
     def calculateEMI(self,Customer):
         try:
